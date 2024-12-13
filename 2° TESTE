@@ -1,0 +1,104 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+typedef struct {
+    char nome[100];
+    char cep[100];
+    char endereco[200];
+	char dataNascimento[100];
+    int statusPagamento;
+
+} Usuario;
+
+// Função para cadastrar um novo usuário
+
+int main(){
+void cadastraUsuario(Usuario *usuarios, int *contador) {
+printf("Digite o nome: ");
+    scanf(" %[^\n]", usuarios[*contador].nome);
+    printf("Digite o CEP: ");
+    scanf(" %[^\n]", usuarios[*contador].cep);
+    
+  
+printf("Digite o endereço: ");     
+	scanf(" %[^\n]", usuarios[*contador].endereco);
+    printf("Digite a data de nascimento (DD/MM/AAAA): ");
+    scanf(" %[^\n]", usuarios[*contador].dataNascimento);
+    usuarios[*contador].statusPagamento = 0;
+    (*contador)++;
+    printf("Usuário cadastrado com sucesso!\n");
+	}
+}
+
+// Função para confirmar pagamento de um usuário:
+
+void confirmarPagamento(Usuario *usuarios, int totalUsuarios) {
+    char nome[100];
+    printf("Digite o nome do usuário para confirmar o pagamento: ");
+    scanf(" %[^\n]", nome);
+
+    for (int i = 0; i < totalUsuarios; i++) {
+        if (strcmp(usuarios[i].nome, nome) == 0) {
+            usuarios[i].statusPagamento = 1;
+            usuarios[i].star
+
+            
+         
+printf("Pagamento confirmado para o usuário: %s\n", usuarios[i].nome);      
+		return;
+        }
+    }
+    printf("Usuário não encontrado.\n");
+}
+
+// Função para verificar atualizações do sistema  // Atualizações a cada 5 meses:
+
+void verificarAtualizacao(int mesAtual) {
+    const int MES_ATUALIZACAO = 5; 
+    if (mesAtual % MES_ATUALIZACAO == 0) {
+        printf("Sistema pronto para atualização.\n");
+    } else {
+        printf("Atualização não necessária neste mês.\n");
+    }
+}
+
+// Função principal  // Array para armazenar até 100 usuários:
+
+int main() {
+    Usuario usuarios[100]; 
+    int contadorUsuarios = 0;
+    int opcao, mesAtual;
+
+    do {
+        printf("\n--- Sistema de Segurança ---\n");
+        printf("1. Cadastrar usuário\n");
+        printf("2. Confirmar pagamento\n");
+        printf("3. Verificar atualização\n");
+        printf("4. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                cadastraUsuario(usuarios, &contadorUsuarios);
+                break;
+            case 2:
+                confirmarPagamento(usuarios, contadorUsuarios);
+                break;
+            case 3:
+                printf("Digite o mês atual (1-12): ");
+                scanf("%d", &mesAtual);
+                verificarAtualizacao(mesAtual);
+                break;
+            case 4:
+                printf("Saindo do sistema.\n");
+                break;
+            default:
+                printf("Opção inválida! Tente novamente.\n");
+        }
+    } while (opcao != 4);
+
+    return 0;
+}
