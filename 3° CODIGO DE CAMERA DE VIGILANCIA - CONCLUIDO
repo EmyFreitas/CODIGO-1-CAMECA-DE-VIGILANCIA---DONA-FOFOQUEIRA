@@ -1,0 +1,127 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <Windows.h>
+#include <time.h>
+// Estrutura para armazenar informações dos usuários
+typedef struct {
+    char nome[100];
+    char cep[100];
+    char endereco[200];
+    char dataNascimento[100];
+    int statusPagamento; // 1 = confirmado, 0 = pendente
+} Usuario;
+
+// Função para cadastrar um novo usuário
+void cadastraUsuario(Usuario *usuarios, int *contador) {
+    printf("Digite o nome: ");
+    scanf(" %[^\n]", usuarios[*contador].nome);
+    printf("Digite o CEP: ");
+    scanf(" %[^\n]", usuarios[*contador].cep);
+    printf("Digite o endereço: ");
+    scanf(" %[^\n]", usuarios[*contador].endereco);
+    printf("Digite a data de nascimento (DD/MM/AAAA): ");
+    scanf(" %[^\n]", usuarios[*contador].dataNascimento);
+    usuarios[*contador].statusPagamento = 0; // Pagamento pendente
+    (*contador)++;
+    printf("Usuário cadastrado com sucesso!\n");
+}
+
+// Função para confirmar pagamento de um usuário
+void confirmarPagamento(Usuario *usuarios, int totalUsuarios) {
+    char nome[100];
+    printf("Digite o nome do usuario para confirmar o pagamento: ");
+    scanf(" %[^\n]", nome);
+
+    for (int i = 0; i < totalUsuarios; i++) {
+        if (strcmp(usuarios[i].nome, nome) == 0) {
+            usuarios[i].statusPagamento = 1;
+            printf("Pagamento confirmado para o usuario: %s\n", usuarios[i].nome);
+            return;
+        }
+    }
+    printf("Usuário nao encontrado.\n");
+}
+
+// Função para simular gravação de vídeo
+void gravarVideo() {
+    printf("Iniciando gravação de video simulada...\n");
+    printf("Gravando...\n");
+    for (int i = 0; i < 10; i++) { // Simula 10 segundos de gravação
+        printf(".");
+        fflush(stdout);
+        Sleep(1);
+    }
+    printf("\nGravacao do dia salva com sucesso!\n");
+}
+
+// Função para verificar energia solar e recarregar bateria
+void verificarRecargaSolar(int *bateria) {
+    printf("Verificando energia solar disponivel...\n");
+    if (rand() % 2 == 0) { // Simula energia solar disponível em 50% das vezes
+        *bateria += 20;
+        if (*bateria > 100) *bateria = 100; // Limita a bateria em 100%
+        printf("Bateria recarregada. Nivel atual: %d%%\n", *bateria);
+    } else {
+        printf("Energia solar insuficiente para recarga.\n");
+    }
+}
+
+// Função para verificar atualizações do sistema
+void verificarAtualizacao(int mesAtual) {
+    const int MES_ATUALIZACAO = 5; // Atualizações a cada 5 meses
+    if (mesAtual % MES_ATUALIZACAO == 0) {
+        printf("Sistema pronto para atualizacao.\n");
+    } else {
+        printf("Atualização nao necessaria neste mes.\n");
+    }
+}
+
+// Função principal
+int main() {
+    Usuario usuarios[100]; // Array para armazenar até 100 usuários
+    int contadorUsuarios = 0;
+    int bateria = 50; // Nível inicial da bateria (em %)
+    int opcao, mesAtual;
+
+    srand(time(NULL)); // Inicializa semente para simular energia solar
+
+    do {
+        printf("\n--- Sistema de Seguranca ---\n");
+        printf("1. Cadastrar usuário\n");
+        printf("2. Confirmar pagamento\n");
+        printf("3. Gravar video\n");
+        printf("4. Verificar recarga solar\n");
+        printf("5. Verificar atualizacao\n");
+        printf("6. Sair\n");
+        printf("Escolha uma opcao: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                cadastraUsuario(usuarios, &contadorUsuarios);
+                break;
+            case 2:
+                confirmarPagamento(usuarios, contadorUsuarios);
+                break;
+            case 3:
+                gravarVideo();
+                break;
+            case 4:
+                verificarRecargaSolar(&bateria);
+                break;
+            case 5:
+                printf("Digite o mes atual (1-12): ");
+                scanf("%d", &mesAtual);
+                verificarAtualizacao(mesAtual);
+                break;
+            case 6:
+                printf("Saindo do sistema.\n");
+                break;
+            default:
+                printf("Opção invalida! Tente novamente.\n");
+        }
+    } while (opcao != 6);
+
+    return 0;
+}
