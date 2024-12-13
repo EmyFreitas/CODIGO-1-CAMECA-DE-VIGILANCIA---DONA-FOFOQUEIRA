@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <Windows.h>
+#include <time.h>
 // Estrutura para armazenar informações dos usuários
 typedef struct {
     char nome[100];
@@ -29,38 +30,38 @@ void cadastraUsuario(Usuario *usuarios, int *contador) {
 // Função para confirmar pagamento de um usuário
 void confirmarPagamento(Usuario *usuarios, int totalUsuarios) {
     char nome[100];
-    printf("Digite o nome do usuário para confirmar o pagamento: ");
+    printf("Digite o nome do usuario para confirmar o pagamento: ");
     scanf(" %[^\n]", nome);
 
     for (int i = 0; i < totalUsuarios; i++) {
         if (strcmp(usuarios[i].nome, nome) == 0) {
             usuarios[i].statusPagamento = 1;
-            printf("Pagamento confirmado para o usuário: %s\n", usuarios[i].nome);
+            printf("Pagamento confirmado para o usuario: %s\n", usuarios[i].nome);
             return;
         }
     }
-    printf("Usuário não encontrado.\n");
+    printf("Usuário nao encontrado.\n");
 }
 
 // Função para simular gravação de vídeo
 void gravarVideo() {
-    printf("Iniciando gravação de vídeo simulada...\n");
+    printf("Iniciando gravação de video simulada...\n");
     printf("Gravando...\n");
     for (int i = 0; i < 10; i++) { // Simula 10 segundos de gravação
         printf(".");
         fflush(stdout);
-        sleep(1);
+        Sleep(1);
     }
-    printf("\nGravação do dia salva com sucesso!\n");
+    printf("\nGravacao do dia salva com sucesso!\n");
 }
 
 // Função para verificar energia solar e recarregar bateria
 void verificarRecargaSolar(int *bateria) {
-    printf("Verificando energia solar disponível...\n");
+    printf("Verificando energia solar disponivel...\n");
     if (rand() % 2 == 0) { // Simula energia solar disponível em 50% das vezes
         *bateria += 20;
         if (*bateria > 100) *bateria = 100; // Limita a bateria em 100%
-        printf("Bateria recarregada. Nível atual: %d%%\n", *bateria);
+        printf("Bateria recarregada. Nivel atual: %d%%\n", *bateria);
     } else {
         printf("Energia solar insuficiente para recarga.\n");
     }
@@ -70,9 +71,9 @@ void verificarRecargaSolar(int *bateria) {
 void verificarAtualizacao(int mesAtual) {
     const int MES_ATUALIZACAO = 5; // Atualizações a cada 5 meses
     if (mesAtual % MES_ATUALIZACAO == 0) {
-        printf("Sistema pronto para atualização.\n");
+        printf("Sistema pronto para atualizacao.\n");
     } else {
-        printf("Atualização não necessária neste mês.\n");
+        printf("Atualização nao necessaria neste mes.\n");
     }
 }
 
@@ -86,14 +87,14 @@ int main() {
     srand(time(NULL)); // Inicializa semente para simular energia solar
 
     do {
-        printf("\n--- Sistema de Segurança ---\n");
+        printf("\n--- Sistema de Seguranca ---\n");
         printf("1. Cadastrar usuário\n");
         printf("2. Confirmar pagamento\n");
-        printf("3. Gravar vídeo\n");
+        printf("3. Gravar video\n");
         printf("4. Verificar recarga solar\n");
-        printf("5. Verificar atualização\n");
+        printf("5. Verificar atualizacao\n");
         printf("6. Sair\n");
-        printf("Escolha uma opção: ");
+        printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
         switch (opcao) {
@@ -110,7 +111,7 @@ int main() {
                 verificarRecargaSolar(&bateria);
                 break;
             case 5:
-                printf("Digite o mês atual (1-12): ");
+                printf("Digite o mes atual (1-12): ");
                 scanf("%d", &mesAtual);
                 verificarAtualizacao(mesAtual);
                 break;
@@ -118,7 +119,7 @@ int main() {
                 printf("Saindo do sistema.\n");
                 break;
             default:
-                printf("Opção inválida! Tente novamente.\n");
+                printf("Opção invalida! Tente novamente.\n");
         }
     } while (opcao != 6);
 
