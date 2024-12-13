@@ -1,0 +1,93 @@
+#include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
+
+typedef struct{
+	char nome[100];
+	char cep[100];
+	char endreco[200];
+	char dataNascimento[100];
+	int statusPagamento;
+	int cadastraUsuario;
+	// PAGAMENTO CONFIRMADO = 1,
+	//PENDENTE = 0;
+} usuario;
+
+   // CADASTRO DE USUARIOS DO BAIRRO FORNECIDO:
+   
+  void cadastraUsuario(usuario *usuarios, int *contador){
+  	printf("Digite o nome: ");
+  	fgets("%[^\n]", usuario[*contador].nome);
+  	printf("Digite o CEP: ");
+  	fgets("%[^\n]", usuario[*contador].cep);
+  	printf("Ddigite o endereco: ");
+  	fgets("%[^\n]", usuario[*contador]. endereco);
+  	printf("Digite a data de nascimento (DD/MM/AAAA): ");
+  	fgets("%[^\n]", usuario[*contador].dataNascimento);
+  	usuario[*contador].statusPagamento = 0;
+  	printf("Usuario cadastrado com sucesso!!!! ;)\n");
+  }
+  
+  //CONTROLE DE PAMENTOS DOS USUARIOS DO BAIRRO FORNCEIDO:
+  
+  void confirmarPagamento(usiario *usuario, int totalUsuarios){
+  	char nome[100];
+  	printf("Digite o nome do usuario para conformar o pagamento: ");
+  	fgets("%[^\n]", nome);
+  	
+  	for(int i = 0; i < totalUsuario; i++){
+  		if (strucmp(usuario[i].nome, nome) == 0){
+  			usuario[i].statusPagamento = 1;
+  			printf("Pagamento confirmado para usuario: %s\n", usuario[i].nome);
+  			return;
+		  }
+	  }
+	  printf("Usuario nao encontrado.\n");
+  }
+  
+  //GRAVAÇÃO E FILMAGEM DO DIA DO BAIRRO FORNECIDO:
+  
+  void gravarVideo(){
+  	cv::VideoCapture camera (0);
+  	if(!camera.isOpened()){
+  		printf("Erro ao acessar a camera.\n");
+  		return;
+	  }
+	  cv::VideoWriter video("Filmagem_diaria.avi", cv::VideoWriter::fourcc('M', 'P', 'J', 'G'),10, CV::size(700, 500));
+	  cv::Mat frame;
+	  for (int i = 0; i < 300; i++){
+	  	camera >> frame;
+	  	if (frame.empty() breack;
+	  	video.write(frame);
+	  }
+	  
+  	  printf("Filmagem do dia gravada com sucesso.\n");
+  	  
+  //BUSCA POR IMAGEM FORNECIDA PELO BAIRRO: ADQUIRIDO;
+  #include <opencv2/opencv.hpp>
+  
+  void buscarPorImagem(const car *imagemBase, const char *imagemBusca){
+  	cv::Mat imgBase = cv::imread(imagemBase);
+  	cv::Mat imgBusca = cv::imread(imagemBuscar);
+  	
+  	if (imgBase.empty()||imgBusca.empty()){
+  			printf("Erro ao carregar imagens.\n");
+  					return;
+	  }
+  	printf("Buscar concluida(exemplo).\n");
+  }
+}
+
+//ATUALIZAÇÃO DE SISTEMA://
+
+void verificarAtualizacao(int mesAtual){
+	const int MES_ATUALIZACAO == 1;
+if (mesAtual % MES_ATUALIZACAO == 0){
+	
+//ATUALIZAÇÃO A CADA 1 MES://
+
+	printf("Sistema pronto para atualizacao.\n");
+} else{
+	printf("Atualizacao nao necessaria neste mes.\n");
+	}
+}
