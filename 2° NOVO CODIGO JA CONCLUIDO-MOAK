@@ -1,0 +1,190 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+// ESTRUTURA DE ARMAZENAMENTO DE TADOS: USUARIOS//
+
+typedef struct {
+    int id;
+    char nome[100];
+    char email[100];
+} Usuario;
+
+// ESTRUTURA PARA ARMAZENAR DADOS DO SISTEMA://
+
+typedef struct {
+    Usuario usuarios[100]; 
+    int totalUsuarios;
+    char detecoes[100][20];
+    int totalDetecoes;
+    int bateria; 
+} Sistema;
+
+// FUNÇÃO PARA INICIALIZAR FUNÇÃO://
+
+void inicializarSistema(Sistema *sistema) {
+    sistema->totalUsuarios = 0;
+    sistema->totalDetecoes = 0;
+    sistema->bateria = 100;
+}
+
+// FUNÇÃO PARA CADASTRAR UM NOVO USUARIO://
+
+void cadastrarUsuario(Sistema *sistema) {
+    if (sistema->totalUsuarios < 100) {
+        Usuario usuario;
+        usuario.id = sistema->totalUsuarios + 1;
+        printf("Nome do usuário: ");
+        getchar();
+        fgets(usuario.nome, sizeof(usuario.nome), stdin);
+        usuario.nome[strcspn(usuario.nome, "\n")] = '\0';
+        printf("Email do usuário: ");
+        fgets(usuario.email, sizeof(usuario.email), stdin);
+        usuario.email[strcspn(usuario.email, "\n")] = '\0';
+        sistema->usuarios[sistema->totalUsuarios] = usuario;
+        sistema->totalUsuarios++;
+        printf("Usuário %s cadastrado com sucesso.\n", usuario.nome);
+    } else {
+        printf("Limite de usuários atingido.\n");
+    }
+}
+
+// FUNÇÃO PARA LISTAR TODOS OS USUARIOS://
+
+void listarUsuarios(Sistema *sistema) {
+    if (sistema->totalUsuarios == 0) {
+        printf("Nenhum usuário cadastrado.\n");
+        return;
+    }
+    for (int i = 0; i < sistema->totalUsuarios; i++) {
+        printf("ID: %d - Nome: %s - Email: %s\n", sistema->usuarios[i].id, sistema->usuarios[i].nome, sistema->usuarios[i].email);
+    }
+}
+
+// FUNÇÃO PARA EXCLUIR UM USUARIO PELO ID://
+
+void excluirUsuario(Sistema *sistema) {
+    int id;
+    printf("Digite o ID do usuário a excluir: ");
+    scanf("%d", &id);
+    if (id > 0 && id <= sistema->totalUsuarios) {
+        for (int i = id - 1; i < sistema->totalUsuarios - 1; i++) {
+            sistema->usuarios[i] = sistema->usuarios[i + 1];
+        }
+        sistema->totalUsuarios--;
+        printf("Usuário de ID %d excluído com sucesso.\n", id);
+    } else {
+        printf("Usuário não encontrado.\n");
+    }
+}
+
+// FUNÇÃO PARA MODIFICAR UM USUARIO://
+
+void modificarUsuario(Sistema *sistema) {
+    int id;
+    printf("Digite o ID do usuário a modificar: ");
+    scanf("%d", &id);
+    if (id > 0 && id <= sistema->totalUsuarios) {
+        getchar(); // Limpar buffer
+        printf("Novo nome: ");
+        fgets(sistema->usuarios[id - 1].nome, sizeof(sistema->usuarios[id - 1].nome), stdin);
+        sistema->usuarios[id - 1].nome[strcspn(sistema->usuarios[id - 1].nome, "\n")] = '\0'; // Remover '\n'
+        printf("Novo email: ");
+        fgets(sistema->usuarios[id - 1].email, sizeof(sistema->usuarios[id - 1].email), stdin);
+        sistema->usuarios[id - 1].email[strcspn(sistema->usuarios[id - 1].email, "\n")] = '\0'; // Remover '\n'
+        printf("Usuário modificado com sucesso.\n");
+    } else {
+        printf("Usuário não encontrado.\n");
+    }
+}
+
+// FUNÇÃO PARA SIMULAR DETECÇÃO DE MOVIMENTO://
+void simularMovimento(Sistema *sistema) {
+    if (rand() % 2 == 0) {
+        time_t agora;
+        struct tm *info;
+        char hora[20];
+        time(&agora);
+        info = localtime(&agora);
+        strftime(hora, sizeof(hora), "%Y-%m-%d %H:%M:%S", info);
+        strcpy(sistema->detecoes[sistema->totalDetecoes], hora);
+        sistema->totalDetecoes++;
+        printf("Movimento detectado em %s\n", hora);
+    } else {
+        printf("Nenhum movimento detectado.\n");
+    }
+}
+
+//FUNÇAÕ PARA GERAR RELATORIO DE DETECÇÕES://
+
+void gerarRelatorio(Sistema *sistema) {
+    if (sistema->totalDetecoes == 0) {
+        printf("Nenhuma detecção registrada.\n");
+    } else {
+        printf("Relatório de detecções de movimento:\n");
+        for (int i = 0; i < sistema->totalDetecoes; i++) {
+            printf("Detecção em: %s\n", sistema->detecoes[i]);
+        }
+    }
+}
+
+//FUNÇÃO PARA SIMULAR A CARGA DE BATERIA://
+
+void simularBateria(Sistema *sistema) {
+    sistema->bateria = rand() % 101;
+    printf("Nível de bateria: %d%%\n", sistema->bateria);
+}
+
+//FUNÇÃO PRINCIPAL PARA O MENU DO SISTEMA://
+
+int main() {
+    Sistema sistema;
+    inicializarSistema(&sistema);
+    int opcao;
+
+    while (1) {
+        printf("\nMenu de opções:\n");
+        printf("1. Cadastrar usuário\n");
+        printf("2. Listar usuários\n");
+        printf("3. Excluir usuário\n");
+        printf("4. Modificar usuário\n");
+        printf("5. Simular detecção de movimento\n");
+        printf("6. Gerar relatório de detecções\n");
+        printf("7. Simular carga da bateria\n");
+        printf("8. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                cadastrarUsuario(&sistema);
+                break;
+            case 2:
+                listarUsuarios(&sistema);
+                break;
+            case 3:
+                excluirUsuario(&sistema);
+                break;
+            case 4:
+                modificarUsuario(&sistema);
+                break;
+            case 5:
+                simularMovimento(&sistema);
+                break;
+            case 6:
+                gerarRelatorio(&sistema);
+                break;
+            case 7:
+                simularBateria(&sistema);
+                break;
+            case 8:
+                printf("Saindo...\n");
+                return 0;
+            default:
+                printf("Opção inválida!\n");
+        }
+    }
+
+    return 0;
+}
