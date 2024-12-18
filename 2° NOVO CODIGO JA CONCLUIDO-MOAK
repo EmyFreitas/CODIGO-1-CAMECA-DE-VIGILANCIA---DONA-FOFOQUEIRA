@@ -59,11 +59,8 @@ void listarUsuarios(Sistema *sistema) {
 
 
 void excluirUsuario(Sistema *sistema) {
-	printf("----------------------------\n");
-    printf("|      EXCLUIR USUARIO     |\n");
-    printf("----------------------------\n");
     int id;
-    printf("Digite o ID do usuÃ¡rio a excluir: ");
+    printf("Digite o ID do usuario a excluir: ");
     scanf("%d", &id);
     if (id > 0 && id <= sistema->totalUsuarios) {
         for (int i = id - 1; i < sistema->totalUsuarios - 1; i++) {
@@ -78,9 +75,6 @@ void excluirUsuario(Sistema *sistema) {
 
 
 void modificarUsuario(Sistema *sistema) {
-	printf("----------------------------\n");
-    printf("|     MODIFICAR USUARIO     |\n");
-    printf("----------------------------\n");
     int id;
     printf("Digite o ID do usuario a modificar: ");
     scanf("%d", &id);
@@ -99,9 +93,6 @@ void modificarUsuario(Sistema *sistema) {
 }
 
 void simularMovimento(Sistema *sistema) {
-	printf("----------------------------\n");
-    printf("|    SIMULAR MOVIMENTO     |\n");
-    printf("----------------------------\n");
     if (rand() % 2 == 0) {
         time_t agora;
         struct tm *info;
@@ -118,13 +109,10 @@ void simularMovimento(Sistema *sistema) {
 }
 
 void gerarRelatorio(Sistema *sistema) {
-	printf("----------------------------\n");
-    printf("|         RELATÓRIO         |\n");
-    printf("----------------------------\n");
     if (sistema->totalDetecoes == 0) {
         printf("Nenhuma detecÃ§Ã£o registrada.\n");
     } else {
-        printf("RelatÃ³rio de detecÃ§Ãµes de movimento:\n");
+        printf("Relatorios de deteccoes de movimento:\n");
         for (int i = 0; i < sistema->totalDetecoes; i++) {
             printf("Detectacao em: %s\n", sistema->detecoes[i]);
         }
@@ -132,9 +120,6 @@ void gerarRelatorio(Sistema *sistema) {
 }
 
 void simularBateria(Sistema *sistema) {
-	printf("----------------------------\n");
-    printf("|      SIMULAR BATERIA     |\n");
-    printf("----------------------------\n");
     sistema->bateria = rand() % 101;
     printf("NÃ­vel de bateria: %d%%\n", sistema->bateria);
 }
@@ -150,12 +135,13 @@ int main() {
     	printf("----------------------------\n");
         printf("\nMenu de opcoes: \n");
         printf("1. Cadastrar usuario: \n");
-        printf("2. Listar usuarios: \n");
+        printf("2. Listar usuario: \n");
         printf("3. Excluir usuario: \n");
         printf("4. Modificar usuario: \n");
         printf("5. Simular detector de movimento: \n");
         printf("6. Gerar relatorio de detectacao: \n");
-        printf("7. Sair\n");
+        printf("7. simular carga de bateria: \n")
+        printf("8. Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
