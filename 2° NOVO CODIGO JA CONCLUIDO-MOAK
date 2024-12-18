@@ -140,8 +140,7 @@ int main() {
         printf("4. Modificar usuario: \n");
         printf("5. Simular detector de movimento: \n");
         printf("6. Gerar relatorio de detectacao: \n");
-        printf("7. simular carga de bateria: \n")
-        printf("8. Sair\n");
+        printf("7. Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
